@@ -48,6 +48,8 @@ export function jarvisReducer(state, action) {
       return { ...state, current: STATES.OFFLINE };
     case 'ERROR':
       return { ...state, current: STATES.ERROR, error: action.error || 'Unknown error' };
+    case 'RESET':
+      return { ...initialState };
     case 'PANIC_OFF':
       return { ...initialState };
     default:
@@ -58,9 +60,13 @@ export function jarvisReducer(state, action) {
 export function startListening(dispatch) {
   dispatch({ type: 'START_LISTENING' });
   clearTimeout(listeningTimer);
-  listeningTimer = setTimeout(() => {
-    dispatch({ type: 'ERROR', error: 'Listening timeout' });
-  }, LISTENING_TIMEOUT_MS);
+  
+  // Only set timeout on native platforms, not web
+  if (typeof window === 'undefined' || !navigator?.userAgent) {
+    listeningTimer = setTimeout(() => {
+      dispatch({ type: 'ERROR', error: 'Listening timeout' });
+    }, LISTENING_TIMEOUT_MS);
+  }
 }
 
 export function stopListening() {

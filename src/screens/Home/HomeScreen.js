@@ -39,6 +39,13 @@ export function HomeScreen() {
     }
   };
 
+  const handleErrorRetry = () => {
+    dispatch({ type: 'RESET' });
+    if (micGranted) {
+      startListening();
+    }
+  };
+
   const stateLabel = state.current.toLowerCase();
 
   return (
@@ -60,13 +67,13 @@ export function HomeScreen() {
       <Text style={styles.trustFootnote}>Nothing recorded • You stay in control</Text>
 
       {state.current === STATES.ERROR ? (
-        <StateBanner title="Error" message={state.error || 'Something went wrong.'} action="Tap to retry" />
+        <StateBanner title="Error" message={state.error || 'Something went wrong.'} action="Tap to retry" onAction={handleErrorRetry} />
       ) : null}
       {state.current === STATES.OFFLINE ? (
-        <StateBanner title="Offline" message="Using local responses until you reconnect." action="Retry connection" />
+        <StateBanner title="Offline" message="Using local responses until you reconnect." action="Retry connection" onAction={() => dispatch({ type: 'RESET' })} />
       ) : null}
       {state.current === STATES.PAUSED ? (
-        <StateBanner title="Paused" message="Listening paused by you." action="Resume" />
+        <StateBanner title="Paused" message="Listening paused by you." action="Resume" onAction={() => dispatch({ type: 'RESUME' })} />
       ) : null}
 
       <View style={styles.toggleRow}>
