@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#EEF2FF',
     borderRadius: 24,
+
+    backgroundColor: colors.background,
+    borderRadius: 20,
     padding: 20,
   },
   heading: {
@@ -89,6 +92,9 @@ const styles = StyleSheet.create({
   carouselCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.78)',
     borderRadius: 18,
+
+    backgroundColor: colors.surface,
+    borderRadius: 16,
     padding: 14,
   },
   carouselTitle: {
@@ -111,6 +117,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
     backgroundColor: 'rgba(255, 255, 255, 0.78)',
     borderRadius: 18,
+
+    backgroundColor: colors.surface,
+    borderRadius: 16,
     padding: 14,
   },
   permissionTitle: {
@@ -132,6 +141,9 @@ const styles = StyleSheet.create({
     marginTop: 18,
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
     borderRadius: 18,
+
+    backgroundColor: colors.surfaceStrong,
+    borderRadius: 16,
     padding: 14,
   },
   ahaTitle: {

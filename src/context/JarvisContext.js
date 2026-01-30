@@ -20,6 +20,15 @@ export function JarvisProvider({ children }) {
         const granted = await checkMicPermission();
         if (!granted) {
           panicOff(dispatch);
+
+        try {
+          const granted = await checkMicPermission();
+          if (!granted) {
+            panicOff(dispatch);
+          }
+        } catch (error) {
+          console.error('Error checking mic permission:', error);
+
         }
       }
     });

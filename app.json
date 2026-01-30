@@ -34,5 +34,7 @@
     "web": {
       "favicon": "./assets/favicon.svg"
     }
+
+    "web": {}
   }
 }

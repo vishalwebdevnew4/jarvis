@@ -9,6 +9,31 @@ export async function requestMicPermission() {
 export async function checkMicPermission() {
   const { status } = await Audio.getPermissionsAsync();
   return status === 'granted';
+  // Web platform doesn't have Audio permission APIs
+  if (Platform.OS === 'web') {
+    return true;
+  }
+  try {
+    const { status } = await Audio.requestPermissionsAsync();
+    return status === 'granted';
+  } catch (error) {
+    console.error('Error requesting mic permission:', error);
+    return false;
+  }
+}
+
+export async function checkMicPermission() {
+  // Web platform doesn't have Audio permission APIs
+  if (Platform.OS === 'web') {
+    return true;
+  }
+  try {
+    const { status } = await Audio.getPermissionsAsync?.() || { status: 'undetermined' };
+    return status === 'granted';
+  } catch (error) {
+    console.error('Error checking mic permission:', error);
+    return false;
+  }
 }
 
 export function bluetoothSupported() {

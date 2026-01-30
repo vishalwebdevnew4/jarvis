@@ -43,6 +43,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#EEF2FF',
     borderRadius: 24,
+
+    backgroundColor: colors.background,
+    borderRadius: 20,
     padding: 20,
     gap: 12,
   },
@@ -61,6 +64,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'rgba(255, 255, 255, 0.78)',
     borderRadius: 18,
+
+    backgroundColor: colors.surface,
+    borderRadius: 16,
     padding: 14,
     gap: 6,
   },
@@ -93,6 +99,8 @@ const styles = StyleSheet.create({
   contextCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
     borderRadius: 18,
+    backgroundColor: colors.surfaceStrong,
+    borderRadius: 16,
     padding: 14,
     gap: 8,
   },
