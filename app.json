@@ -31,6 +31,10 @@
       },
       "package": "com.jarvis.app"
     },
+    "web": {
+      "favicon": "./assets/favicon.svg"
+    }
+
     "web": {}
   }
 }

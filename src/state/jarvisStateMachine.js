@@ -60,6 +60,10 @@ export function jarvisReducer(state, action) {
 export function startListening(dispatch) {
   dispatch({ type: 'START_LISTENING' });
   clearTimeout(listeningTimer);
+  listeningTimer = setTimeout(() => {
+    dispatch({ type: 'ERROR', error: 'Listening timeout' });
+  }, LISTENING_TIMEOUT_MS);
+
   
   // Only set timeout on native platforms, not web
   if (typeof window === 'undefined' || !navigator?.userAgent) {

@@ -1,6 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
 import { useEffect, useState } from 'react';
+
 import { StyleSheet, View } from 'react-native';
 import { StateBanner } from '../components/StateBanner/StateBanner';
 import { useAppState } from '../context/AppStateContext';
@@ -17,6 +20,7 @@ const Stack = createNativeStackNavigator();
 export function RootNavigator() {
   const { onboardingComplete } = useAppState();
   const { state } = useJarvis();
+
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
@@ -28,9 +32,11 @@ export function RootNavigator() {
     return () => clearTimeout(timer);
   }, []);
 
+
   const showPaused = state.current === STATES.PAUSED;
   const showOffline = state.current === STATES.OFFLINE;
   const showError = state.current === STATES.ERROR;
+
 
   if (showSplash) {
     return <SplashScreen />;
@@ -40,6 +46,8 @@ export function RootNavigator() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Splash" component={SplashScreen} />
+
           {!onboardingComplete ? (
             <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
           ) : (

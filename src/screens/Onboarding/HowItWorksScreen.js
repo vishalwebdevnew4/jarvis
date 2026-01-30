@@ -1,3 +1,4 @@
+import { StyleSheet, Text, View } from 'react-native';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../theme/colors';
@@ -9,11 +10,13 @@ const cards = [
 ];
 
 export function HowItWorksScreen() {
+
   const navigation = useNavigation();
 
   const handleContinue = () => {
     navigation.navigate('Consent');
   };
+
 
   return (
     <View style={styles.container}>
@@ -26,6 +29,8 @@ export function HowItWorksScreen() {
           </View>
         ))}
       </View>
+      <Text style={styles.cta}>Continue</Text>
+
       <TouchableOpacity onPress={handleContinue} style={styles.ctaButton}>
         <Text style={styles.cta}>Continue</Text>
       </TouchableOpacity>
@@ -36,6 +41,37 @@ export function HowItWorksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EEF2FF',
+    padding: 24,
+    gap: 16,
+  },
+  title: {
+    color: colors.textPrimary,
+    fontSize: 22,
+    fontWeight: '700',
+  },
+  carousel: {
+    gap: 12,
+  },
+  card: {
+    backgroundColor: 'rgba(255, 255, 255, 0.78)',
+    borderRadius: 18,
+    padding: 14,
+  },
+  cardTitle: {
+    color: colors.textPrimary,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  cardBody: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    marginTop: 6,
+  },
+  cta: {
+    color: colors.accent,
+    fontSize: 14,
+
     backgroundColor: colors.background,
     backgroundImage: colors.backgroundGradient,
     padding: 24,
@@ -96,5 +132,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     textAlign: 'center',
+
   },
 });

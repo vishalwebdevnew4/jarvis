@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Linking, StyleSheet, Switch, Text, View } from 'react-native';
+import { usePermissions } from '../../context/PermissionContext';
 import { Linking, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { usePermissions } from '../../context/PermissionContext';
@@ -7,14 +9,19 @@ import { requestMicPermission } from '../../services/permissionService';
 import { colors } from '../../theme/colors';
 
 export function ConsentScreen() {
+  const { micGranted, setMicGranted } = usePermissions();
+
   const navigation = useNavigation();
   const { micGranted, setMicGranted } = usePermissions();
   const { setOnboardingComplete } = useAppState();
+
   const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
   const [aiEnabled, setAiEnabled] = useState(false);
 
   const handleMicToggle = async (enabled) => {
     if (enabled) {
+      const granted = await requestMicPermission();
+      setMicGranted(granted);
       try {
         const granted = await requestMicPermission();
         setMicGranted(granted);
@@ -28,6 +35,7 @@ export function ConsentScreen() {
   };
 
   const readyToContinue = micGranted && bluetoothEnabled && aiEnabled;
+
 
   const handleContinue = () => {
     if (readyToContinue) {
@@ -72,6 +80,9 @@ export function ConsentScreen() {
         <Text style={styles.cardBody}>We don’t: No advertising or data resale.</Text>
       </View>
 
+      <Text style={readyToContinue ? styles.ctaReady : styles.ctaDisabled}>
+        Continue {readyToContinue ? '✓' : ''}
+      </Text>
       <TouchableOpacity 
         onPress={handleContinue} 
         disabled={!readyToContinue}
@@ -88,6 +99,25 @@ export function ConsentScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#EEF2FF',
+    padding: 24,
+    gap: 12,
+  },
+  title: {
+    color: colors.textPrimary,
+    fontSize: 22,
+    fontWeight: '700',
+  },
+  subtitle: {
+    color: colors.textSecondary,
+    fontSize: 12,
+  },
+  card: {
+    backgroundColor: 'rgba(255, 255, 255, 0.78)',
+    borderRadius: 18,
+    padding: 14,
+    gap: 6,
+
     backgroundColor: colors.background,
     backgroundImage: colors.backgroundGradient,
     padding: 24,
@@ -127,6 +157,26 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: colors.textPrimary,
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  cardBody: {
+    color: colors.textSecondary,
+    fontSize: 12,
+  },
+  cardAction: {
+    color: colors.accent,
+    fontSize: 12,
+  },
+  ctaReady: {
+    color: colors.accent,
+    fontSize: 14,
+    marginTop: 8,
+  },
+  ctaDisabled: {
+    color: colors.textSecondary,
+    fontSize: 14,
+    marginTop: 8,
     fontSize: 16,
     fontWeight: '700',
   },

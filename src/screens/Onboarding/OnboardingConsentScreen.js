@@ -63,6 +63,9 @@ export function OnboardingConsentScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#EEF2FF',
+    borderRadius: 24,
+
     backgroundColor: colors.background,
     borderRadius: 20,
     padding: 20,
@@ -87,6 +90,9 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   carouselCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.78)',
+    borderRadius: 18,
+
     backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 14,
@@ -109,6 +115,9 @@ const styles = StyleSheet.create({
   },
   permissionCard: {
     marginTop: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.78)',
+    borderRadius: 18,
+
     backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 14,
@@ -130,6 +139,9 @@ const styles = StyleSheet.create({
   },
   ahaCard: {
     marginTop: 18,
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    borderRadius: 18,
+
     backgroundColor: colors.surfaceStrong,
     borderRadius: 16,
     padding: 14,
