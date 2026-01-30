@@ -1,13 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../theme/colors';
-
-export function StateBanner({ title, message, action }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.message}>{message}</Text>
-      <Text style={styles.action}>{action}</Text>
-    </View>
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../theme/colors';
 

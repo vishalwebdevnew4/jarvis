@@ -6,28 +6,28 @@ const modes = [
   {
     title: 'Meeting',
     subtitle: 'Smart assistance in conversations',
-    preview: '“Summarize decision points.”',
+    preview: '"Summarize decision points."',
     notDo: 'Will NOT interrupt speakers.',
     accent: colors.accentAlt,
   },
   {
     title: 'Shopping',
     subtitle: 'Smarter purchase guidance',
-    preview: '“Wait for a better price.”',
+    preview: '"Wait for a better price."',
     notDo: 'Will NOT auto-buy.',
     accent: colors.success,
   },
   {
     title: 'Navigation',
     subtitle: 'Stay aware on the move',
-    preview: '“Traffic is heavy ahead.”',
+    preview: '"Traffic is heavy ahead."',
     notDo: 'Will NOT track without consent.',
     accent: colors.warning,
   },
   {
     title: 'Focus',
     subtitle: 'Minimize distractions',
-    preview: '“Only urgent alerts.”',
+    preview: '"Only urgent alerts."',
     notDo: 'Will NOT surface chatter.',
     accent: colors.accent,
   },
@@ -54,7 +54,7 @@ export function ModesScreen() {
         <Text style={styles.detailTitle}>Mode detail</Text>
         <Text style={styles.detailItem}>What Jarvis will do: concise guidance.</Text>
         <Text style={styles.detailItem}>What Jarvis will NOT do: act without consent.</Text>
-        <Text style={styles.detailItem}>Example whisper: “I can draft a polite reply.”</Text>
+        <Text style={styles.detailItem}>Example whisper: "I can draft a polite reply."</Text>
         <Text style={styles.detailItem}>Auto-disable timer: 15m / 30m / 1h / Manual</Text>
       </View>
     </View>
@@ -63,8 +63,7 @@ export function ModesScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#EEF2FF',
-    borderRadius: 24,
+    flex: 1,
     backgroundColor: colors.background,
     borderRadius: 20,
     padding: 20,
@@ -85,9 +84,6 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   detailCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.78)',
-    borderRadius: 18,
-
     backgroundColor: colors.surface,
     borderRadius: 16,
     padding: 14,

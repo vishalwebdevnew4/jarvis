@@ -17,10 +17,6 @@ export function JarvisProvider({ children }) {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', async (status) => {
       if (status === 'active') {
-        const granted = await checkMicPermission();
-        if (!granted) {
-          panicOff(dispatch);
-
         try {
           const granted = await checkMicPermission();
           if (!granted) {
@@ -28,7 +24,6 @@ export function JarvisProvider({ children }) {
           }
         } catch (error) {
           console.error('Error checking mic permission:', error);
-
         }
       }
     });

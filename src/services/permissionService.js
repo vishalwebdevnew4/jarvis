@@ -2,14 +2,6 @@ import * as Audio from 'expo-av';
 import { Platform } from 'react-native';
 
 export async function requestMicPermission() {
-  const { status } = await Audio.requestPermissionsAsync();
-  return status === 'granted';
-}
-
-export async function checkMicPermission() {
-  const { status } = await Audio.getPermissionsAsync();
-  return status === 'granted';
-  // Web platform doesn't have Audio permission APIs
   if (Platform.OS === 'web') {
     return true;
   }
@@ -23,12 +15,12 @@ export async function checkMicPermission() {
 }
 
 export async function checkMicPermission() {
-  // Web platform doesn't have Audio permission APIs
   if (Platform.OS === 'web') {
     return true;
   }
   try {
-    const { status } = await Audio.getPermissionsAsync?.() || { status: 'undetermined' };
+    const result = await Audio.getPermissionsAsync?.();
+    const status = result?.status || 'undetermined';
     return status === 'granted';
   } catch (error) {
     console.error('Error checking mic permission:', error);
