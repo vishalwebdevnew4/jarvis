@@ -1,9 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
 import { useEffect, useState } from 'react';
-
 import { StyleSheet, View } from 'react-native';
 import { StateBanner } from '../components/StateBanner/StateBanner';
 import { useAppState } from '../context/AppStateContext';
@@ -24,7 +21,6 @@ export function RootNavigator() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    // Show splash for 2 seconds then transition
     const timer = setTimeout(() => {
       setShowSplash(false);
     }, 2000);
@@ -32,11 +28,9 @@ export function RootNavigator() {
     return () => clearTimeout(timer);
   }, []);
 
-
-  const showPaused = state.current === STATES.PAUSED;
-  const showOffline = state.current === STATES.OFFLINE;
-  const showError = state.current === STATES.ERROR;
-
+  const showPaused = state?.current === STATES.PAUSED;
+  const showOffline = state?.current === STATES.OFFLINE;
+  const showError = state?.current === STATES.ERROR;
 
   if (showSplash) {
     return <SplashScreen />;
@@ -46,8 +40,6 @@ export function RootNavigator() {
     <NavigationContainer>
       <View style={styles.container}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Splash" component={SplashScreen} />
-
           {!onboardingComplete ? (
             <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
           ) : (
@@ -63,7 +55,7 @@ export function RootNavigator() {
             <StateBanner title="Offline" message="Using local responses until you reconnect." action="Retry" />
           ) : null}
           {showError ? (
-            <StateBanner title="Error" message={state.error || 'Something went wrong.'} action="Try again" />
+            <StateBanner title="Error" message={state?.error || 'Something went wrong.'} action="Try again" />
           ) : null}
         </View>
       </View>
