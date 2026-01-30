@@ -1,12 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../theme/colors';
 
 export function WelcomeScreen() {
+  const navigation = useNavigation();
+
+  const handleGetStarted = () => {
+    navigation.navigate('HowItWorks');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your personal voice assistant, in your ear.</Text>
       <Text style={styles.subtitle}>You decide when it listens.</Text>
-      <Text style={styles.cta}>Get Started</Text>
+      <TouchableOpacity onPress={handleGetStarted} style={styles.ctaButton}>
+        <Text style={styles.cta}>Get Started</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -28,9 +37,17 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 14,
   },
-  cta: {
-    color: colors.accent,
-    fontSize: 14,
+  ctaButton: {
     marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: colors.accent,
+  },
+  cta: {
+    color: colors.background,
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

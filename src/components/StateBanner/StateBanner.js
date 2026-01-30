@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../../theme/colors';
 
-export function StateBanner({ title, message, action }) {
+export function StateBanner({ title, message, action, onAction }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.message}>{message}</Text>
-      <Text style={styles.action}>{action}</Text>
-    </View>
+    <TouchableOpacity onPress={onAction} activeOpacity={0.7}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.message}>{message}</Text>
+        <Text style={styles.action}>{action}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

@@ -1,24 +1,39 @@
 import { useState } from 'react';
-import { Linking, StyleSheet, Switch, Text, View } from 'react-native';
+import { Linking, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { usePermissions } from '../../context/PermissionContext';
+import { useAppState } from '../../context/AppStateContext';
 import { requestMicPermission } from '../../services/permissionService';
 import { colors } from '../../theme/colors';
 
 export function ConsentScreen() {
+  const navigation = useNavigation();
   const { micGranted, setMicGranted } = usePermissions();
+  const { setOnboardingComplete } = useAppState();
   const [bluetoothEnabled, setBluetoothEnabled] = useState(false);
   const [aiEnabled, setAiEnabled] = useState(false);
 
   const handleMicToggle = async (enabled) => {
     if (enabled) {
-      const granted = await requestMicPermission();
-      setMicGranted(granted);
+      try {
+        const granted = await requestMicPermission();
+        setMicGranted(granted);
+      } catch (error) {
+        console.error('Error requesting mic permission:', error);
+        setMicGranted(false);
+      }
       return;
     }
     setMicGranted(false);
   };
 
   const readyToContinue = micGranted && bluetoothEnabled && aiEnabled;
+
+  const handleContinue = () => {
+    if (readyToContinue) {
+      setOnboardingComplete(true);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -57,9 +72,15 @@ export function ConsentScreen() {
         <Text style={styles.cardBody}>We don’t: No advertising or data resale.</Text>
       </View>
 
-      <Text style={readyToContinue ? styles.ctaReady : styles.ctaDisabled}>
-        Continue {readyToContinue ? '✓' : ''}
-      </Text>
+      <TouchableOpacity 
+        onPress={handleContinue} 
+        disabled={!readyToContinue}
+        style={readyToContinue ? styles.ctaButtonReady : styles.ctaButtonDisabled}
+      >
+        <Text style={readyToContinue ? styles.ctaReady : styles.ctaDisabled}>
+          Continue {readyToContinue ? '✓' : ''}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -105,14 +126,30 @@ const styles = StyleSheet.create({
     color: colors.accent,
     fontSize: 12,
   },
+  ctaButtonReady: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: colors.accent,
+  },
+  ctaButtonDisabled: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+  },
   ctaReady: {
-    color: colors.accent,
+    color: colors.background,
     fontSize: 14,
-    marginTop: 8,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   ctaDisabled: {
     color: colors.textSecondary,
     fontSize: 14,
-    marginTop: 8,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../theme/colors';
 
 const cards = [
@@ -8,6 +9,12 @@ const cards = [
 ];
 
 export function HowItWorksScreen() {
+  const navigation = useNavigation();
+
+  const handleContinue = () => {
+    navigation.navigate('Consent');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>How it works</Text>
@@ -19,7 +26,9 @@ export function HowItWorksScreen() {
           </View>
         ))}
       </View>
-      <Text style={styles.cta}>Continue</Text>
+      <TouchableOpacity onPress={handleContinue} style={styles.ctaButton}>
+        <Text style={styles.cta}>Continue</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -54,8 +63,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 6,
   },
+  ctaButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    backgroundColor: colors.accent,
+  },
   cta: {
-    color: colors.accent,
+    color: colors.background,
     fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
