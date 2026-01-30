@@ -3,13 +3,14 @@ import { colors } from '../../theme/colors';
 
 export function ModeCard({ title, subtitle, preview, notDo, accentColor }) {
   return (
-    <View style={[styles.card, { borderColor: accentColor || colors.accent }]}
-    >
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{subtitle}</Text>
-      <Text style={styles.preview}>{preview}</Text>
-      <Text style={styles.notDo}>{notDo}</Text>
-      <Text style={[styles.status, { color: accentColor || colors.accent }]}>Toggle</Text>
+    <View style={[styles.card, { borderColor: accentColor || colors.glassBorder }]}>
+      <View style={styles.content}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
+        <View style={styles.divider} />
+        <Text style={styles.preview}>{preview}</Text>
+        <Text style={styles.notDo}>{notDo}</Text>
+      </View>
     </View>
   );
 }
@@ -17,35 +18,35 @@ export function ModeCard({ title, subtitle, preview, notDo, accentColor }) {
 const styles = StyleSheet.create({
   card: {
     width: '48%',
-    backgroundColor: colors.surface,
-    borderRadius: 16,
-    padding: 14,
+    backgroundColor: colors.glass,
+    borderRadius: 24,
+    padding: 16,
     borderWidth: 1,
+    backdropFilter: 'blur(10px)', // Web only hint
   },
   title: {
     color: colors.textPrimary,
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 16,
+    fontWeight: '700',
   },
   subtitle: {
     color: colors.textSecondary,
     fontSize: 12,
-    marginTop: 6,
-    lineHeight: 16,
+    marginTop: 4,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.glassBorder,
+    marginVertical: 12,
   },
   preview: {
-    color: colors.textPrimary,
+    color: colors.accent,
     fontSize: 11,
-    marginTop: 8,
+    fontStyle: 'italic',
   },
   notDo: {
-    color: colors.textSecondary,
-    fontSize: 11,
-    marginTop: 6,
-  },
-  status: {
-    marginTop: 10,
-    fontSize: 12,
-    fontWeight: '600',
+    color: colors.textMuted,
+    fontSize: 10,
+    marginTop: 4,
   },
 });

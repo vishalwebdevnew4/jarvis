@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native';
 import { JarvisCoreButton } from '../../components/JarvisCoreButton/JarvisCoreButton';
 import { PanicButton } from '../../components/PanicButton/PanicButton';
 import { StateBanner } from '../../components/StateBanner/StateBanner';
@@ -39,152 +39,146 @@ export function HomeScreen() {
     }
   };
 
-  const handleErrorRetry = () => {
-    dispatch({ type: 'RESET' });
-    if (micGranted) {
-      startListening();
-    }
-  };
-
-  const stateLabel = state.current.toLowerCase();
-
   return (
-    <View style={styles.container}>
-      <View style={styles.headerRow}>
-        <Text style={styles.greeting}>Good morning, User</Text>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.greeting}>JARVIS CORE</Text>
+          <Text style={styles.subGreeting}>SECURE VOICE SESSION</Text>
+        </View>
         <PanicButton onPress={panicOff} />
       </View>
 
-      <TouchableOpacity onPress={handleCorePress} activeOpacity={0.8}>
-        <JarvisCoreButton state={jarvisStateMap[state.current]} />
-      </TouchableOpacity>
-      <Text style={styles.stateLabel}>State: {stateLabel}</Text>
-
-      <View style={styles.trustRow}>
-        <Text style={styles.trustLabel}>Listening paused</Text>
-        <Text style={styles.trustLabel}>Session expires in 15m</Text>
+      <View style={styles.heroSection}>
+        <TouchableOpacity onPress={handleCorePress} activeOpacity={0.9}>
+          <JarvisCoreButton state={jarvisStateMap[state.current]} />
+        </TouchableOpacity>
       </View>
-      <Text style={styles.trustFootnote}>Nothing recorded - You stay in control</Text>
 
-      {state.current === STATES.ERROR ? (
-        <StateBanner title="Error" message={state.error || 'Something went wrong.'} action="Tap to retry" onAction={handleErrorRetry} />
-      ) : null}
-      {state.current === STATES.OFFLINE ? (
-        <StateBanner title="Offline" message="Using local responses until you reconnect." action="Retry connection" onAction={() => dispatch({ type: 'RESET' })} />
-      ) : null}
-      {state.current === STATES.PAUSED ? (
-        <StateBanner title="Paused" message="Listening paused by you." action="Resume" onAction={() => dispatch({ type: 'RESUME' })} />
-      ) : null}
-
-      <View style={styles.toggleRow}>
-        <View style={styles.toggleCard}>
-          <Text style={styles.toggleLabel}>Push-to-Talk</Text>
-          <Text style={styles.toggleValue}>Active</Text>
+      <View style={styles.statsRow}>
+        <View style={styles.statCard}>
+          <Text style={styles.statLabel}>LATENCY</Text>
+          <Text style={styles.statValue}>24ms</Text>
         </View>
-        <View style={styles.toggleCard}>
-          <Text style={styles.toggleLabel}>Wake Word</Text>
-          <Text style={styles.toggleValueInactive}>Off</Text>
+        <View style={styles.statCard}>
+          <Text style={styles.statLabel}>UPTIME</Text>
+          <Text style={styles.statValue}>99.9%</Text>
         </View>
       </View>
 
-      <View style={styles.systemRow}>
-        <View style={styles.systemCard}>
-          <Text style={styles.systemTitle}>Earphones</Text>
-          <Text style={styles.systemValue}>Not connected</Text>
+      {state.current === STATES.ERROR && (
+        <StateBanner 
+          title="SYSTEM ERROR" 
+          message={state.error || 'Unknown failure.'} 
+          action="REBOOT" 
+          onAction={() => dispatch({ type: 'RESET' })} 
+        />
+      )}
+
+      <View style={styles.infoSection}>
+        <Text style={styles.sectionTitle}>SYSTEM STATUS</Text>
+        <View style={styles.statusLine}>
+          <View style={styles.statusDot} />
+          <Text style={styles.statusText}>Biometric encryption active</Text>
         </View>
-        <View style={styles.systemCard}>
-          <Text style={styles.systemTitle}>Battery</Text>
-          <Text style={styles.systemValue}>--</Text>
+        <View style={styles.statusLine}>
+          <View style={styles.statusDot} />
+          <Text style={styles.statusText}>Neural processing local</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
     backgroundColor: colors.background,
-    borderRadius: 20,
-    padding: 20,
-    gap: 16,
   },
-  headerRow: {
+  container: {
+    padding: 24,
+    paddingTop: 60,
+  },
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 40,
   },
   greeting: {
     color: colors.textPrimary,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 24,
+    fontWeight: '900',
+    letterSpacing: 1,
   },
-  stateLabel: {
-    color: colors.textSecondary,
-    fontSize: 12,
-    textTransform: 'uppercase',
-    letterSpacing: 1.1,
-    textAlign: 'center',
+  subGreeting: {
+    color: colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 2,
+    marginTop: 4,
   },
-  trustRow: {
+  heroSection: {
+    backgroundColor: colors.glass,
+    borderRadius: 40,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
+    marginBottom: 24,
+  },
+  statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: 16,
+    marginBottom: 24,
   },
-  trustLabel: {
-    color: colors.textSecondary,
-    fontSize: 12,
-  },
-  trustFootnote: {
-    color: colors.textSecondary,
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  toggleRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  toggleCard: {
+  statCard: {
     flex: 1,
-    backgroundColor: colors.surface,
-    borderRadius: 16,
-    padding: 14,
+    backgroundColor: colors.glass,
+    borderRadius: 24,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
   },
-  toggleLabel: {
-    color: colors.textSecondary,
-    fontSize: 12,
-    textTransform: 'uppercase',
-    letterSpacing: 1.1,
+  statLabel: {
+    color: colors.textMuted,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 1,
   },
-  toggleValue: {
-    color: colors.success,
-    fontSize: 14,
-    marginTop: 8,
-    fontWeight: '600',
-  },
-  toggleValueInactive: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    marginTop: 8,
-    fontWeight: '600',
-  },
-  systemRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  systemCard: {
-    flex: 1,
-    backgroundColor: colors.surface,
-    borderRadius: 16,
-    padding: 14,
-  },
-  systemTitle: {
-    color: colors.textSecondary,
-    fontSize: 12,
-  },
-  systemValue: {
+  statValue: {
     color: colors.textPrimary,
-    fontSize: 14,
-    marginTop: 6,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '800',
+    marginTop: 4,
+  },
+  infoSection: {
+    backgroundColor: colors.glass,
+    borderRadius: 32,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
+  },
+  sectionTitle: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 1.5,
+    marginBottom: 16,
+  },
+  statusLine: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: colors.success,
+    marginRight: 12,
+  },
+  statusText: {
+    color: colors.textSecondary,
+    fontSize: 13,
   },
 });

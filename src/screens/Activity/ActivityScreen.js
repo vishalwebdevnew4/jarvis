@@ -1,130 +1,99 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { colors } from '../../theme/colors';
 
 const interactions = [
-  { time: '2 min ago', prompt: 'Summarize the call notes', response: 'Here are the key decisions...' },
-  { time: '6 min ago', prompt: 'Draft a polite reply', response: 'Here is a concise response...' },
+  { time: '14:22', prompt: 'Summarize meeting', response: 'Summary sent to cloud vault.' },
+  { time: '14:05', prompt: 'Battery status', response: '78% - 12h remaining.' },
+  { time: '13:58', prompt: 'Next task', response: 'Review Jarvis UI redesign.' },
 ];
 
 export function ActivityScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Recent Activity</Text>
-      <Text style={styles.subheading}>Auto-clear after 15 minutes • No raw audio stored</Text>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>NEURAL LOGS</Text>
+      <Text style={styles.subheading}>Self-destructing in 15 minutes.</Text>
 
       <View style={styles.timeline}>
-        {interactions.map((entry) => (
-          <View key={entry.time} style={styles.card}>
-            <Text style={styles.time}>{entry.time}</Text>
-            <Text style={styles.prompt}>{entry.prompt}</Text>
-            <Text style={styles.response}>{entry.response}</Text>
-            <View style={styles.actions}>
-              <Text style={styles.action}>Repeat</Text>
-              <Text style={styles.action}>Copy</Text>
-              <Text style={styles.actionDanger}>Delete</Text>
+        {interactions.map((entry, i) => (
+          <View key={i} style={styles.logEntry}>
+            <View style={styles.timeColumn}>
+              <Text style={styles.time}>{entry.time}</Text>
+              <View style={styles.line} />
+            </View>
+            <View style={styles.contentCard}>
+              <Text style={styles.prompt}>{entry.prompt}</Text>
+              <Text style={styles.response}>{entry.response}</Text>
             </View>
           </View>
         ))}
       </View>
-
-      <View style={styles.contextCard}>
-        <Text style={styles.contextTitle}>Current Context</Text>
-        <View style={styles.contextRow}>
-          <Text style={styles.contextChip}>Meeting Mode</Text>
-          <Text style={styles.contextChip}>Last topic: Follow-ups</Text>
-        </View>
-        <Text style={styles.clearAll}>Delete all data</Text>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#EEF2FF',
-    borderRadius: 24,
-
+  scrollView: {
+    flex: 1,
     backgroundColor: colors.background,
-    borderRadius: 20,
-    padding: 20,
-    gap: 12,
+  },
+  container: {
+    padding: 24,
+    paddingTop: 60,
   },
   heading: {
     color: colors.textPrimary,
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 24,
+    fontWeight: '900',
+    letterSpacing: 1.5,
   },
   subheading: {
-    color: colors.textSecondary,
-    fontSize: 12,
+    color: colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 2,
+    marginTop: 4,
+    marginBottom: 40,
   },
   timeline: {
-    gap: 10,
+    gap: 0,
   },
-  card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.78)',
-    borderRadius: 18,
-
-    backgroundColor: colors.surface,
-    borderRadius: 16,
-    padding: 14,
-    gap: 6,
+  logEntry: {
+    flexDirection: 'row',
+    gap: 20,
+    marginBottom: 24,
+  },
+  timeColumn: {
+    alignItems: 'center',
+    width: 40,
   },
   time: {
-    color: colors.textSecondary,
-    fontSize: 11,
+    color: colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  line: {
+    flex: 1,
+    width: 1,
+    backgroundColor: colors.glassBorder,
+    marginTop: 8,
+  },
+  contentCard: {
+    flex: 1,
+    backgroundColor: colors.glass,
+    borderRadius: 24,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
   },
   prompt: {
     color: colors.textPrimary,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '600',
   },
   response: {
     color: colors.textSecondary,
     fontSize: 12,
-  },
-  actions: {
-    flexDirection: 'row',
-    gap: 12,
-    marginTop: 6,
-  },
-  action: {
-    color: colors.accent,
-    fontSize: 12,
-  },
-  actionDanger: {
-    color: colors.error,
-    fontSize: 12,
-  },
-  contextCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    borderRadius: 18,
-    backgroundColor: colors.surfaceStrong,
-    borderRadius: 16,
-    padding: 14,
-    gap: 8,
-  },
-  contextTitle: {
-    color: colors.textPrimary,
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  contextRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  contextChip: {
-    color: colors.textSecondary,
-    fontSize: 12,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: colors.surfaceStrong,
-  },
-  clearAll: {
-    color: colors.error,
-    fontSize: 12,
+    marginTop: 4,
+    lineHeight: 18,
   },
 });

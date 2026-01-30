@@ -1,43 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { ModeCard } from '../../components/ModeCard/ModeCard';
 import { colors } from '../../theme/colors';
 
 const modes = [
   {
-    title: 'Meeting',
-    subtitle: 'Smart assistance in conversations',
-    preview: '"Summarize decision points."',
-    notDo: 'Will NOT interrupt speakers.',
+    title: 'MEETING',
+    subtitle: 'Neural summarization active',
+    preview: '"Identify key action items."',
+    notDo: 'Passive listening only.',
     accent: colors.accentAlt,
   },
   {
-    title: 'Shopping',
-    subtitle: 'Smarter purchase guidance',
-    preview: '"Wait for a better price."',
-    notDo: 'Will NOT auto-buy.',
+    title: 'TRANSIT',
+    subtitle: 'Augmented spatial awareness',
+    preview: '"Route is safe for walking."',
+    notDo: 'No tracking persistence.',
     accent: colors.success,
   },
   {
-    title: 'Navigation',
-    subtitle: 'Stay aware on the move',
-    preview: '"Traffic is heavy ahead."',
-    notDo: 'Will NOT track without consent.',
+    title: 'FOCUS',
+    subtitle: 'Deep work priority',
+    preview: '"Blocking non-essential pings."',
+    notDo: 'Urgent bypass allowed.',
     accent: colors.warning,
   },
   {
-    title: 'Focus',
-    subtitle: 'Minimize distractions',
-    preview: '"Only urgent alerts."',
-    notDo: 'Will NOT surface chatter.',
+    title: 'SOCIAL',
+    subtitle: 'Contextual social cues',
+    preview: '"Vishal is entering the room."',
+    notDo: 'Privacy masks enabled.',
     accent: colors.accent,
   },
 ];
 
 export function ModesScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Assistant Modes</Text>
-      <Text style={styles.subheading}>Customize how Jarvis helps you.</Text>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>NEURAL MODES</Text>
+      <Text style={styles.subheading}>Select active cognitive layer.</Text>
+      
       <View style={styles.grid}>
         {modes.map((mode) => (
           <ModeCard
@@ -50,52 +51,79 @@ export function ModesScreen() {
           />
         ))}
       </View>
+
       <View style={styles.detailCard}>
-        <Text style={styles.detailTitle}>Mode detail</Text>
-        <Text style={styles.detailItem}>What Jarvis will do: concise guidance.</Text>
-        <Text style={styles.detailItem}>What Jarvis will NOT do: act without consent.</Text>
-        <Text style={styles.detailItem}>Example whisper: "I can draft a polite reply."</Text>
-        <Text style={styles.detailItem}>Auto-disable timer: 15m / 30m / 1h / Manual</Text>
+        <Text style={styles.detailTitle}>LAYER PROTOCOL</Text>
+        <View style={styles.protocolLine}>
+          <Text style={styles.protocolLabel}>ENCRYPTION</Text>
+          <Text style={styles.protocolValue}>AES-256-GCM</Text>
+        </View>
+        <View style={styles.protocolLine}>
+          <Text style={styles.protocolLabel}>LATENCY</Text>
+          <Text style={styles.protocolValue}>LOW-LE</Text>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
     backgroundColor: colors.background,
-    borderRadius: 20,
-    padding: 20,
-    gap: 14,
+  },
+  container: {
+    padding: 24,
+    paddingTop: 60,
   },
   heading: {
     color: colors.textPrimary,
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 24,
+    fontWeight: '900',
+    letterSpacing: 1.5,
   },
   subheading: {
-    color: colors.textSecondary,
-    fontSize: 12,
+    color: colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 2,
+    marginTop: 4,
+    marginBottom: 32,
   },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 16,
+    justifyContent: 'space-between',
   },
   detailCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 16,
-    padding: 14,
-    gap: 6,
+    marginTop: 32,
+    backgroundColor: colors.glass,
+    borderRadius: 32,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
   },
   detailTitle: {
     color: colors.textPrimary,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  detailItem: {
-    color: colors.textSecondary,
     fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 2,
+    marginBottom: 16,
+  },
+  protocolLine: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  protocolLabel: {
+    color: colors.textMuted,
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  protocolValue: {
+    color: colors.accent,
+    fontSize: 10,
+    fontWeight: '700',
   },
 });

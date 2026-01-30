@@ -1,26 +1,25 @@
 export const colors = {
-  background: '#0F172A',
-  backgroundGradient: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)',
+  background: '#0B0F1A',
+  backgroundGradient: ['#0B0F1A', '#1A1F35'],
   
-  glass: 'rgba(30, 41, 59, 0.7)',
-  glassDark: 'rgba(15, 23, 42, 0.5)',
-  glassLight: 'rgba(51, 65, 85, 0.6)',
+  // Glassmorphism base
+  glass: 'rgba(255, 255, 255, 0.08)',
+  glassBorder: 'rgba(255, 255, 255, 0.12)',
+  glassStrong: 'rgba(255, 255, 255, 0.15)',
   
-  surface: 'rgba(51, 65, 85, 0.5)',
-  surfaceStrong: 'rgba(71, 85, 105, 0.6)',
-  
-  accent: '#06B6D4',
-  accentLight: '#22D3EE',
-  accentGradient: 'linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)',
-  
+  // Accents with Glow
+  accent: '#00D9FF',
+  accentGlow: 'rgba(0, 217, 255, 0.3)',
   accentAlt: '#8B5CF6',
-  accentPink: '#EC4899',
-  accentPurple: '#A855F7',
+  accentAltGlow: 'rgba(139, 92, 246, 0.3)',
   
-  textPrimary: '#F1F5F9',
-  textSecondary: '#94A3B8',
-  
+  // Semantic
   success: '#10B981',
   warning: '#F59E0B',
   error: '#EF4444',
+  
+  // Typography
+  textPrimary: '#FFFFFF',
+  textSecondary: '#94A3B8',
+  textMuted: '#64748B',
 };
